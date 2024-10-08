@@ -1,6 +1,5 @@
 import torch
 import pandas as pd
-...path_to_your_file
 
 pre_df = pd.read_csv("...path_to_your_file/test_task1_sample_submission.csv")
 submit_df = pd.read_csv("...path_to_your_file/test_task1.csv") 
