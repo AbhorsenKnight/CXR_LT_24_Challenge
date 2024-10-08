@@ -80,54 +80,6 @@ class FusionBackbone(nn.Module):
         self.head = MLDecoder(num_classes=40, initial_num_features=num_of_features)
         self.transformer_encoder = nn.TransformerEncoder(nn.TransformerEncoderLayer(d_model=num_of_features, nhead=8), num_layers=2)
 
-
-
-        '''
-        if "convnext" in timm_init_args['model_name']:
-            if "base" in timm_init_args['model_name']:
-                self.model = timm.create_model(**timm_init_args, global_pool='')
-                self.model.head = MLDecoder(num_classes=40, initial_num_features=1024)
-                if pretrained_path is not None:
-                    print("loading pretrained weight")
-                    self.model.load_state_dict(torch.load(pretrained_path), strict=False)
-                self.model.head = nn.Identity()
-                self.conv2d = nn.Conv2d(1024, 1024, kernel_size=3, stride=2, padding=1)
-                self.pos_encoding = Summer(PositionalEncoding2D(1024))
-                self.padding_token = nn.Parameter(torch.randn(1, 1024, 1, 1))
-                self.segment_embedding = nn.Parameter(torch.randn(4, 1024, 1, 1))
-                
-                self.head = MLDecoder(num_classes=40, initial_num_features=1024)
-                self.transformer_encoder = nn.TransformerEncoder(nn.TransformerEncoderLayer(d_model=1024, nhead=8), num_layers=2)
-            else:
-                self.model = timm.create_model(**timm_init_args, global_pool='')
-                self.model.head = MLDecoder(num_classes=40, initial_num_features=768)
-                if pretrained_path is not None:
-                    print("loading pretrained weight")
-                    self.model.load_state_dict(torch.load(pretrained_path), strict=False)
-                self.model.head = nn.Identity()
-                self.conv2d = nn.Conv2d(768, 768, kernel_size=3, stride=2, padding=1)
-                self.pos_encoding = Summer(PositionalEncoding2D(768))
-                self.padding_token = nn.Parameter(torch.randn(1, 768, 1, 1))
-                self.segment_embedding = nn.Parameter(torch.randn(4, 768, 1, 1))
-                    
-                self.head = MLDecoder(num_classes=40, initial_num_features=768)
-                self.transformer_encoder = nn.TransformerEncoder(nn.TransformerEncoderLayer(d_model=768, nhead=8), num_layers=2)
-        elif "efficientnet" in timm_init_args['model_name']:
-            self.model = timm.create_model(**timm_init_args, global_pool='')
-            #self.model.head = nn.Identity()
-            self.pos_encoding = Summer(PositionalEncoding2D(1536))
-            self.head = MLDecoder(num_classes=40, initial_num_features=1536)
-        elif "resnet50" in timm_init_args['model_name']:
-            self.model = timm.create_model(**timm_init_args, global_pool='')
-            #self.model.head = nn.Identity()
-            self.pos_encoding = Summer(PositionalEncoding2D(2048))
-            self.head = MLDecoder(num_classes=40, initial_num_features=2048)
-
-
-        #self.model = timm.create_model(**timm_init_args)
-        #self.model.head = MLDecoder(num_classes=40, initial_num_features=768)
-        '''
-
     def forward(self, x):
         
         #print(x.shape)
